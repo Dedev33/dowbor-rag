@@ -2,8 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "next build",
   "outputDirectory": ".next",
-  "installCommand": "npm install",
-  "env": {
-    "OPENAI_API_KEY": "${OPENAI_API_KEY}"
-  }
+  "installCommand": "npm install"
 }
