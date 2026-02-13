@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { BOOK_METADATA, BOOK_STRUCTURE } from '@/lib/book-content';
 
 interface Message {
@@ -73,13 +73,9 @@ export default function Home() {
   const [activeLang, setActiveLang] = useState<'pt' | 'en' | 'es' | 'fr'>('pt');
   const [streamingContent, setStreamingContent] = useState('');
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
 
   const sendMessage = useCallback(async (content: string) => {
     if (!content.trim() || isLoading) return;
@@ -377,7 +373,7 @@ export default function Home() {
               </div>
             )}
 
-            <div ref={messagesEndRef} />
+
           </div>
 
           {/* Input */}
