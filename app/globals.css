@@ -230,81 +230,17 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-/* Book cover card — mimics the actual book cover color scheme */
+/* Book cover card */
 .book-card { overflow: hidden; }
 
 .book-cover {
-  background: linear-gradient(160deg, #1C1C1C 0%, #2D2D2D 100%);
-  padding: 20px 18px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  position: relative;
-  overflow: hidden;
+  display: block;
 }
 
-/* Subtle diagonal lines texture like real book cover */
-.book-cover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    -55deg,
-    transparent 0px,
-    transparent 12px,
-    rgba(255,255,255,0.025) 12px,
-    rgba(255,255,255,0.025) 13px
-  );
-  pointer-events: none;
-}
-
-.book-cover-label {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--red);
-  position: relative;
-  z-index: 1;
-}
-
-.book-cover-title {
-  font-family: var(--font-answer);
-  font-size: 1.0rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  line-height: 1.3;
-  position: relative;
-  z-index: 1;
-}
-
-.book-cover-subtitle {
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 300;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.45;
-  font-style: italic;
-  position: relative;
-  z-index: 1;
-}
-
-.book-cover-author {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.45);
-  text-transform: uppercase;
-  position: relative;
-  z-index: 1;
-  margin-top: 4px;
-}
-
-/* Red accent bar under cover */
-.book-cover-bar {
-  height: 3px;
-  background: var(--red);
+.book-cover-img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .book-info {

@@ -201,14 +201,12 @@ export default function Home() {
           {/* Book card */}
           <div className="card book-card">
             <div className="book-cover">
-              <div className="book-cover-label">Ladislau Dowbor · 2017</div>
-              <div className="book-cover-title">A Era do Capital Improdutivo</div>
-              <div className="book-cover-subtitle">
-                Nova arquitetura do poder: dominação financeira, sequestro da democracia e destruição do planeta
-              </div>
-              <div className="book-cover-author">Autonomia Literária · São Paulo</div>
+              <img
+                src="/book-cover.png"
+                alt="A Era do Capital Improdutivo — Ladislau Dowbor"
+                className="book-cover-img"
+              />
             </div>
-            <div className="book-cover-bar" />
             <div className="book-info">
               <div className="info-row">
                 <span className="info-label">Autor</span>
