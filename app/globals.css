@@ -1,0 +1,846 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* ─── DOWBOR.ORG EXACT COLOR PALETTE ───────────────────────────────
+   * Extracted from live site: white background, crimson red accent,
+   * Roboto typography, minimal borders, clean Elementor layout.
+   * Header is WHITE (not dark), logo is red wordmark "dowbor.org"
+   * ─────────────────────────────────────────────────────────────────── */
+
+  --red:          #C0392B;
+  --red-dark:     #9B2D20;
+  --red-hover:    #A93226;
+  --red-pale:     #FDF3F2;
+  --red-border:   #E8A49D;
+
+  --white:        #FFFFFF;
+  --off-white:    #F9F9F9;
+  --light-gray:   #F4F4F4;
+  --border-light: #EBEBEB;
+  --border-mid:   #D8D8D8;
+  --border-input: #CCCCCC;
+
+  --text-black:   #1A1A1A;
+  --text-dark:    #2D2D2D;
+  --text-mid:     #555555;
+  --text-muted:   #888888;
+  --text-placeholder: #AAAAAA;
+
+  /* Typography — Roboto is dowbor.org's font. Roboto Slab for answers. */
+  --font-ui:     'Roboto', sans-serif;
+  --font-body:   'Roboto', sans-serif;
+  --font-answer: 'Roboto Slab', Georgia, serif;
+  --font-mono:   'Roboto Mono', monospace;
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.09);
+  --shadow-md: 0 2px 10px rgba(0,0,0,0.10);
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--text-black);
+  line-height: 1.65;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--light-gray); }
+::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--red); }
+::selection { background: var(--red); color: white; }
+*:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+/* ─── ANIMATIONS ──────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.animate-fade-in   { animation: fadeIn 0.4s ease-out forwards; }
+.animate-slide-left  { animation: slideInLeft 0.3s ease-out forwards; }
+.animate-slide-right { animation: slideInRight 0.3s ease-out forwards; }
+
+/* ─── PAGE WRAPPER ────────────────────────────────────────────── */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--white);
+}
+
+/* ─── SITE HEADER — matches dowbor.org: white bg, red logo, clean nav ── */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-xs);
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 16px;
+}
+
+/* Logo — "dowbor.org" in crimson red, plain bold text, exactly like the site */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-wordmark {
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.logo-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border-mid);
+}
+
+.logo-subtitle {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+/* Header nav — uppercase small labels, exactly like dowbor.org */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 2px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.nav-link:hover { color: var(--red); background: var(--red-pale); }
+
+/* "PARTICIPE" style button — red pill, used on dowbor.org nav */
+.nav-cta {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--red);
+  padding: 7px 14px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.15s;
+  margin-left: 8px;
+}
+
+.nav-cta:hover { background: var(--red-dark); }
+
+.beta-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--red);
+  background: var(--red-pale);
+  border: 1px solid var(--red-border);
+  padding: 2px 6px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ─── MAIN CONTENT ────────────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 28px 24px;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* All sidebar cards share this base */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-top: 3px solid var(--red);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Book cover card — mimics the actual book cover color scheme */
+.book-card { overflow: hidden; }
+
+.book-cover {
+  background: linear-gradient(160deg, #1C1C1C 0%, #2D2D2D 100%);
+  padding: 20px 18px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle diagonal lines texture like real book cover */
+.book-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -55deg,
+    transparent 0px,
+    transparent 12px,
+    rgba(255,255,255,0.025) 12px,
+    rgba(255,255,255,0.025) 13px
+  );
+  pointer-events: none;
+}
+
+.book-cover-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--red);
+  position: relative;
+  z-index: 1;
+}
+
+.book-cover-title {
+  font-family: var(--font-answer);
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+
+.book-cover-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.45;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+
+.book-cover-author {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  margin-top: 4px;
+}
+
+/* Red accent bar under cover */
+.book-cover-bar {
+  height: 3px;
+  background: var(--red);
+}
+
+.book-info {
+  padding: 12px 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-light);
+  gap: 8px;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.info-value {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-dark);
+  text-align: right;
+  line-height: 1.3;
+}
+
+.book-link {
+  display: block;
+  margin: 12px 16px;
+  padding: 8px 12px;
+  background: var(--red);
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: background 0.15s;
+}
+
+.book-link:hover { background: var(--red-dark); }
+
+/* ─── SIDEBAR SECTION CARDS ───────────────────────────────────── */
+.card-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-header-title {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mid);
+}
+
+/* Questions */
+.questions-list {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.question-btn {
+  background: none;
+  border: none;
+  border-left: 2px solid transparent;
+  padding: 7px 10px;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  line-height: 1.4;
+  transition: all 0.12s;
+  border-radius: 0;
+}
+
+.question-btn:hover {
+  background: var(--red-pale);
+  border-left-color: var(--red);
+  color: var(--red-dark);
+}
+
+.question-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* Structure */
+.structure-list { padding: 12px 16px; display: flex; flex-direction: column; gap: 12px; }
+
+.structure-part {}
+
+.part-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  margin-bottom: 2px;
+}
+
+.part-title {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.chapter-item {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  padding: 1px 0 1px 10px;
+  border-left: 1px solid var(--border-mid);
+  margin-left: 4px;
+  line-height: 1.45;
+}
+
+/* ─── CHAT AREA ───────────────────────────────────────────────── */
+.chat-area { display: flex; flex-direction: column; }
+
+/* Chat header — section title bar like dowbor.org section headers */
+.chat-header {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--red);
+  border-bottom: none;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-title {
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+}
+
+.chat-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+  font-weight: 400;
+}
+
+.lang-selector { display: flex; gap: 3px; }
+
+.lang-btn {
+  background: none;
+  border: 1px solid var(--border-mid);
+  padding: 3px 8px;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.12s;
+  border-radius: 0;
+}
+
+.lang-btn:hover { border-color: var(--red); color: var(--red); }
+.lang-btn.active { background: var(--red); color: white; border-color: var(--red); }
+
+/* ─── MESSAGES CONTAINER ──────────────────────────────────────── */
+.messages-container {
+  flex: 1;
+  background: var(--off-white);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--red);
+  border-top: none;
+  border-bottom: none;
+  padding: 20px;
+  min-height: 480px;
+  max-height: 560px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Welcome */
+.welcome-msg {
+  text-align: center;
+  padding: 40px 24px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.welcome-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.welcome-title {
+  font-family: var(--font-answer);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.welcome-desc {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  max-width: 380px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* Horizontal rule to separate welcome from prompts */
+.welcome-rule {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  width: 60px;
+  margin: 16px auto;
+}
+
+/* Messages */
+.message {
+  display: flex;
+  gap: 10px;
+  max-width: 100%;
+}
+
+.message-user    { flex-direction: row-reverse; animation: slideInRight 0.28s ease-out; }
+.message-assistant { animation: slideInLeft 0.28s ease-out; }
+
+.message-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  font-family: var(--font-ui);
+  font-weight: 700;
+}
+
+.avatar-user {
+  background: var(--text-dark);
+  color: white;
+  font-size: 0.75rem;
+}
+
+.avatar-assistant {
+  background: var(--red);
+  color: white;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+}
+
+.message-bubble {
+  max-width: calc(100% - 44px);
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+
+.bubble-user {
+  background: var(--text-dark);
+  color: white;
+  font-family: var(--font-body);
+  border-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.bubble-assistant {
+  background: var(--white);
+  color: var(--text-black);
+  font-family: var(--font-answer);
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--red);
+  border-radius: 0;
+  box-shadow: var(--shadow-xs);
+}
+
+/* Markdown in assistant bubble */
+.bubble-assistant p { margin-bottom: 8px; }
+.bubble-assistant p:last-child { margin-bottom: 0; }
+.bubble-assistant strong { color: var(--red-dark); font-weight: 700; }
+.bubble-assistant em { font-style: italic; color: var(--text-mid); }
+.bubble-assistant ul, .bubble-assistant ol { padding-left: 18px; margin: 6px 0; }
+.bubble-assistant li { margin-bottom: 4px; }
+.bubble-assistant h3, .bubble-assistant h4 {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 10px 0 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.bubble-assistant blockquote {
+  border-left: 3px solid var(--red);
+  padding-left: 12px;
+  margin: 8px 0;
+  color: var(--text-mid);
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+/* Typing indicator */
+.typing-indicator {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 4px 2px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) { animation-delay: 0.18s; }
+.typing-dot:nth-child(3) { animation-delay: 0.36s; }
+
+/* ─── INPUT AREA ──────────────────────────────────────────────── */
+.input-area {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-left: 4px solid var(--red);
+  border-top: 1px solid var(--border-mid);
+  padding: 14px 18px;
+}
+
+.input-form {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.input-wrapper { flex: 1; }
+
+.message-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-input);
+  border-radius: 0;
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--text-black);
+  resize: none;
+  min-height: 42px;
+  max-height: 110px;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+  overflow-y: auto;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: var(--red);
+  box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.12);
+}
+
+.message-input::placeholder {
+  color: var(--text-placeholder);
+  font-style: italic;
+}
+
+.send-btn {
+  padding: 10px 20px;
+  background: var(--red);
+  color: white;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  white-space: nowrap;
+}
+
+.send-btn:hover:not(:disabled) { background: var(--red-dark); }
+.send-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.input-hint {
+  margin-top: 6px;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--text-placeholder);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Error */
+.error-msg {
+  background: var(--red-pale);
+  border: 1px solid var(--red-border);
+  border-left: 3px solid var(--red);
+  padding: 10px 14px;
+  color: var(--red-dark);
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Clear button */
+.clear-btn {
+  background: none;
+  border: 1px solid var(--border-mid);
+  padding: 4px 10px;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.12s;
+  border-radius: 0;
+}
+
+.clear-btn:hover { border-color: var(--red); color: var(--red); }
+
+/* ─── FOOTER — matches dowbor.org's minimal footer ────────────── */
+.site-footer {
+  background: var(--off-white);
+  border-top: 1px solid var(--border-light);
+  padding: 20px 24px;
+  margin-top: auto;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-text {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.footer-link {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover { color: var(--red); }
+
+.footer-cc {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-placeholder);
+  letter-spacing: 0.03em;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .main-content {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+
+  .sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .book-card { grid-column: 1 / -1; }
+
+  .messages-container {
+    min-height: 380px;
+    max-height: 440px;
+  }
+
+  .header-nav .nav-link { display: none; }
+}
+
+@media (max-width: 600px) {
+  .sidebar { grid-template-columns: 1fr; }
+  .header-inner { padding: 0 16px; }
+  .logo-subtitle { display: none; }
+  .logo-divider { display: none; }
+}
